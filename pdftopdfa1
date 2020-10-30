@@ -1,0 +1,12 @@
+#!/bin/bash
+#
+# Usage: pdftopdfa1 <input file> <output file>
+#
+DIR=$(dirname "$(readlink -f "$BASH_SOURCE")")
+JAR=$(realpath --relative-to="$DIR" $DIR/preflight-app-2.0.21.jar)
+echo \npdftopdfa1 auxiliary files to be found in $DIR\n
+echo \nIn case of problems, check the hardcoded path to the icc file in PDFA_def.ps!
+echo gs -dPDFA=1 -dNOSAFER -dNOOUTERSAVE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=3 -o "$2" $DIR/PDFA_def.ps "$1"
+gs -dPDFA=1 -dNOSAFER -dNOOUTERSAVE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=3 -o "$2" $DIR/PDFA_def.ps "$1"
+echo java -jar $JAR "$2"
+java -jar $JAR "$2"
