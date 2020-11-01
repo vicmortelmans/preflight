@@ -2,11 +2,18 @@
 #
 # Usage: pdftopdfa1 <input file> <output file>
 #
+# To make this work, you have to
+# - update the hardcoded path of the icc file in PDFA_def.ps
+# - update the ghostscript command (I have here gs-952, because I use a binary 
+#   that is different from the outdated one installed in my distro, which I 
+#   can't remove if I don't want to break my printer drivers etc.)
+# - have some luck...
+#
 DIR=$(dirname "$(readlink -f "$BASH_SOURCE")")
-JAR=$(realpath --relative-to="$DIR" $DIR/preflight-app-2.0.21.jar)
-echo \npdftopdfa1 auxiliary files to be found in $DIR\n
-echo \nIn case of problems, check the hardcoded path to the icc file in PDFA_def.ps!
-echo gs -dPDFA=1 -dNOSAFER -dNOOUTERSAVE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=3 -o "$2" $DIR/PDFA_def.ps "$1"
-gs -dPDFA=1 -dNOSAFER -dNOOUTERSAVE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=3 -o "$2" $DIR/PDFA_def.ps "$1"
+JAR=$(realpath "$DIR/preflight-app-2.0.21.jar")
+echo -e "\npdftopdfa1 auxiliary files to be found in $DIR\n" 
+echo -e "\nIn case of problems, check the hardcoded path to the icc file in PDFA_def.ps!\n"
+echo gs-952 -dPDFA=1 -dNOSAFER -dNOOUTERSAVE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=3 -o "$2" $DIR/PDFA_def.ps "$1"
+gs-952 -dPDFA=1 -dNOSAFER -dNOOUTERSAVE -sProcessColorModel=DeviceRGB -sDEVICE=pdfwrite -dPDFACompatibilityPolicy=3 -o "$2" $DIR/PDFA_def.ps "$1"
 echo java -jar $JAR "$2"
 java -jar $JAR "$2"

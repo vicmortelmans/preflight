@@ -3,11 +3,13 @@
 ## required tools:
 
 - Apache PDFBox https://pdfbox.apache.org/download.html (the required jar in this repository, but you may want to get a newer version)
-- Ghostscript
+- Ghostscript https://github.com/ArtifexSoftware/ghostpdl-downloads/releases
+
+Note that I got good results with Ghostscript version 9.52, not with 9.53!
 
 ## usage
 
-Check the comments in the bash script pdftopdfa1
+Check the comments in the bash script `pdftopdfa1`
 
 ## inspiring articles:
 
